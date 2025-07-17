@@ -1,0 +1,11 @@
+# Exclude the view-source file as it's not part of the actual website
+view-source_https___www.hideawaydesign.com.html
+
+# macOS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db 
