@@ -194,7 +194,6 @@
     /* Section Base Styles */
     .section {
       min-height: 100vh;
-      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -204,7 +203,6 @@
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
-      overflow: hidden;
     }
 
     .section.visible {
@@ -219,7 +217,6 @@
       padding: 8rem 5% 4rem;
       opacity: 1;
       transform: translateY(0);
-      height: 100vh;
       min-height: 100vh;
     }
 
@@ -436,50 +433,11 @@
       width: 100%;
     }
 
-    .contact-info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .contact-info-item {
-      background: rgba(255, 255, 255, 0.6);
-      padding: 1.5rem;
-      border-radius: 8px;
-      text-align: center;
-      transition: all 0.3s ease;
-      border: 1px solid #E5DDD5;
-    }
-
-    .contact-info-item:hover {
-      background: rgba(255, 255, 255, 0.9);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(107, 91, 75, 0.15);
-    }
-
-    .contact-info-item h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #6B5B4B;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.5rem;
-    }
-
-    .contact-info-item p {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.95rem;
-      color: #5A5A5A;
-      word-break: break-word;
-    }
-
     .contact-form-container {
       background: #FFFFFF;
       padding: clamp(2rem, 5vw, 3.5rem);
       box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
-      margin-top: 1rem;
+      margin-top: 2rem;
     }
 
     .contact-form {
@@ -691,48 +649,39 @@
 
       /* Mobile: No animations, solid appearance */
       .section {
-        padding: 5.5rem 5% 2rem;
+        padding: 5rem 5% 3rem;
         opacity: 1 !important;
         transform: translateY(0) !important;
         transition: none;
-        height: 100vh;
         min-height: 100vh;
-        max-height: 100vh;
-        overflow-y: auto;
+        overflow-y: visible;
         -webkit-overflow-scrolling: touch;
-        justify-content: flex-start;
+        justify-content: center;
       }
 
       .hero {
         padding: 6rem 5% 3rem;
-        height: 100vh;
         min-height: 100vh;
-        max-height: 100vh;
-        overflow-y: auto;
+        overflow-y: visible;
       }
 
       /* Compress About section to fit in viewport on mobile */
       .about {
-        padding: 5.5rem 5% 2rem;
-        height: 100vh;
-        min-height: 100vh;
-        max-height: 100vh;
-        justify-content: flex-start;
+        padding: 4.5rem 5% 2.5rem;
       }
 
       .about .section-title {
         margin-bottom: 0.5rem;
-        margin-top: 0;
       }
 
       .about .section-subtitle {
-        margin-bottom: 1.2rem;
+        margin-bottom: 1.5rem;
         font-size: 0.9rem;
       }
 
       .about-logo-container {
-        padding: 1.2rem;
-        margin-bottom: 1.2rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
       }
 
       .about-logo {
@@ -750,21 +699,16 @@
 
       /* Compress Process section to fit in viewport on mobile */
       .process {
-        padding: 5.5rem 5% 2rem;
-        height: 100vh;
-        min-height: 100vh;
-        max-height: 100vh;
-        justify-content: flex-start;
+        padding: 4rem 5% 2rem;
       }
 
       .process .section-title {
-        margin-bottom: 0.4rem;
-        margin-top: 0;
+        margin-bottom: 0.5rem;
         font-size: 1.8rem;
       }
 
       .process .section-subtitle {
-        margin-bottom: 1rem;
+        margin-bottom: 1.2rem;
         font-size: 0.85rem;
       }
 
@@ -801,44 +745,21 @@
 
       /* Compress Contact section to fit in viewport on mobile */
       .contact {
-        padding: 5.5rem 5% 2rem;
-        height: 100vh;
-        min-height: 100vh;
-        max-height: 100vh;
-        justify-content: flex-start;
+        padding: 4rem 5% 2rem;
       }
 
       .contact .section-title {
-        margin-bottom: 0.4rem;
-        margin-top: 0;
+        margin-bottom: 0.5rem;
         font-size: 1.8rem;
       }
 
       .contact .section-subtitle {
-        margin-bottom: 1rem;
-        font-size: 0.85rem;
-      }
-
-      .contact-info-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .contact-info-item {
-        padding: 1.2rem;
-      }
-
-      .contact-info-item h3 {
-        font-size: 0.7rem;
-      }
-
-      .contact-info-item p {
+        margin-bottom: 1.2rem;
         font-size: 0.85rem;
       }
 
       .contact-form-container {
-        margin-top: 0.8rem;
+        margin-top: 1.5rem;
         padding: 1.5rem;
       }
 
@@ -887,34 +808,24 @@
       }
 
       .section {
-        padding: 5.5rem 4% 2rem;
-        height: 100vh;
-        min-height: 100vh;
-        max-height: 100vh;
+        padding: 4.5rem 4% 2.5rem;
         opacity: 1 !important;
         transform: translateY(0) !important;
-        justify-content: flex-start;
+        min-height: 100vh;
       }
 
       .hero {
-        padding: 6rem 4% 2.5rem;
-        height: 100vh;
+        padding: 5.5rem 4% 2.5rem;
         min-height: 100vh;
-        max-height: 100vh;
       }
 
       /* Extra compression for About section on small mobile */
       .about {
-        padding: 5.5rem 4% 2rem;
-        height: 100vh;
-        min-height: 100vh;
-        max-height: 100vh;
-        justify-content: flex-start;
+        padding: 4rem 4% 2rem;
       }
 
       .about .section-title {
         margin-bottom: 0.4rem;
-        margin-top: 0;
       }
 
       .about .section-subtitle {
@@ -943,21 +854,16 @@
 
       /* Extra compression for Process section on small mobile */
       .process {
-        padding: 5.5rem 4% 2rem;
-        height: 100vh;
-        min-height: 100vh;
-        max-height: 100vh;
-        justify-content: flex-start;
+        padding: 3.8rem 4% 1.8rem;
       }
 
       .process .section-title {
         margin-bottom: 0.3rem;
-        margin-top: 0;
         font-size: 1.6rem;
       }
 
       .process .section-subtitle {
-        margin-bottom: 0.9rem;
+        margin-bottom: 1rem;
         font-size: 0.8rem;
         line-height: 1.4;
       }
@@ -991,45 +897,22 @@
 
       /* Extra compression for Contact section on small mobile */
       .contact {
-        padding: 5.5rem 4% 2rem;
-        height: 100vh;
-        min-height: 100vh;
-        max-height: 100vh;
-        justify-content: flex-start;
+        padding: 3.8rem 4% 1.8rem;
       }
 
       .contact .section-title {
         margin-bottom: 0.3rem;
-        margin-top: 0;
         font-size: 1.6rem;
       }
 
       .contact .section-subtitle {
-        margin-bottom: 0.9rem;
+        margin-bottom: 1rem;
         font-size: 0.8rem;
         line-height: 1.4;
       }
 
-      .contact-info-grid {
-        grid-template-columns: 1fr;
-        gap: 0.8rem;
-        margin-bottom: 1.2rem;
-      }
-
-      .contact-info-item {
-        padding: 1rem;
-      }
-
-      .contact-info-item h3 {
-        font-size: 0.65rem;
-      }
-
-      .contact-info-item p {
-        font-size: 0.8rem;
-      }
-
       .contact-form-container {
-        margin-top: 0.7rem;
+        margin-top: 1rem;
         padding: 1.2rem;
       }
 
@@ -1169,21 +1052,6 @@
     <div class="contact-content">
       <h2 class="section-title">Get In Touch</h2>
       <p class="section-subtitle">Let's discuss your landscape design vision and bring it to life</p>
-      
-      <div class="contact-info-grid">
-        <div class="contact-info-item">
-          <h3>Phone</h3>
-          <p>(949) 403-0040</p>
-        </div>
-        <div class="contact-info-item">
-          <h3>Email</h3>
-          <p>kendall@hideawaydesign.com</p>
-        </div>
-        <div class="contact-info-item">
-          <h3>Location</h3>
-          <p>Corona Del Mar, CA</p>
-        </div>
-      </div>
       
       <div class="contact-form-container">
         <form class="contact-form" autocomplete="off">
