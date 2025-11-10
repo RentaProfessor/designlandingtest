@@ -16,7 +16,9 @@ export default function Header() {
     setIsMenuOpen(false)
     const element = document.getElementById(id)
     if (element) {
-      const offset = 80
+      // Use larger offset for mobile to account for header
+      const isMobile = window.innerWidth < 768
+      const offset = isMobile ? 70 : 80
       const elementPosition = element.getBoundingClientRect().top
       const offsetPosition = elementPosition + window.pageYOffset - offset
       
@@ -38,8 +40,10 @@ export default function Header() {
     <>
       {/* Header */}
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md transition-all duration-300 ${
-          isScrolled ? 'py-4 shadow-lg' : 'py-5 shadow-md'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled 
+            ? 'py-4 shadow-lg bg-white/95 backdrop-blur-md' 
+            : 'py-5 shadow-md bg-white/70 backdrop-blur-sm'
         }`}
         style={{
           paddingTop: 'max(1.25rem, env(safe-area-inset-top))',
@@ -49,7 +53,9 @@ export default function Header() {
       >
         <div className="flex justify-between items-center px-[5%]">
           {/* Logo */}
-          <h1 className="font-serif text-sm md:text-lg font-semibold tracking-[0.15em] text-brown-700 uppercase z-[1003]">
+          <h1 className={`font-serif text-sm md:text-lg font-semibold tracking-[0.15em] uppercase z-[1003] transition-colors duration-300 ${
+            isScrolled ? 'text-brown-800' : 'text-brown-700'
+          }`}>
             HIDEAWAY DESIGN COLLECTIVE
           </h1>
 
@@ -59,7 +65,9 @@ export default function Header() {
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="font-sans text-sm font-medium tracking-wider uppercase text-brown-500 hover:text-brown-400 transition-colors duration-300 relative group"
+                className={`font-sans text-sm font-medium tracking-wider uppercase hover:text-brown-400 transition-colors duration-300 relative group ${
+                  isScrolled ? 'text-brown-700' : 'text-brown-600'
+                }`}
               >
                 {link.label}
                 <span className="absolute bottom-[-5px] left-0 w-0 h-0.5 bg-brown-400 transition-all duration-300 group-hover:w-full" />
@@ -74,19 +82,19 @@ export default function Header() {
             aria-label="Toggle menu"
           >
             <span 
-              className={`w-7 h-0.5 bg-brown-500 rounded transition-all duration-300 ${
-                isMenuOpen ? 'rotate-45 translate-y-[8px]' : ''
-              }`}
+              className={`w-7 h-0.5 rounded transition-all duration-300 ${
+                isScrolled ? 'bg-brown-800' : 'bg-brown-700'
+              } ${isMenuOpen ? 'rotate-45 translate-y-[8px]' : ''}`}
             />
             <span 
-              className={`w-7 h-0.5 bg-brown-500 rounded transition-all duration-300 ${
-                isMenuOpen ? 'opacity-0 -translate-x-5' : ''
-              }`}
+              className={`w-7 h-0.5 rounded transition-all duration-300 ${
+                isScrolled ? 'bg-brown-800' : 'bg-brown-700'
+              } ${isMenuOpen ? 'opacity-0 -translate-x-5' : ''}`}
             />
             <span 
-              className={`w-7 h-0.5 bg-brown-500 rounded transition-all duration-300 ${
-                isMenuOpen ? '-rotate-45 -translate-y-[8px]' : ''
-              }`}
+              className={`w-7 h-0.5 rounded transition-all duration-300 ${
+                isScrolled ? 'bg-brown-800' : 'bg-brown-700'
+              } ${isMenuOpen ? '-rotate-45 -translate-y-[8px]' : ''}`}
             />
           </button>
         </div>
