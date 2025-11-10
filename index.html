@@ -194,6 +194,7 @@
     /* Section Base Styles */
     .section {
       min-height: 100vh;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -203,13 +204,7 @@
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    /* Safari mobile specific viewport fix */
-    @supports (-webkit-touch-callout: none) {
-      .section {
-        min-height: -webkit-fill-available;
-      }
+      overflow: hidden;
     }
 
     .section.visible {
@@ -224,6 +219,8 @@
       padding: 8rem 5% 4rem;
       opacity: 1;
       transform: translateY(0);
+      height: 100vh;
+      min-height: 100vh;
     }
 
     .hero-content {
@@ -653,17 +650,33 @@
         color: #3D3D3D;
       }
 
+      /* Mobile: No animations, solid appearance */
       .section {
         padding: 5rem 5% 3rem;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        transition: none;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       .hero {
         padding: 6rem 5% 3rem;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
+        overflow-y: auto;
       }
 
       /* Compress About section to fit in viewport on mobile */
       .about {
         padding: 4.5rem 5% 2.5rem;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
       }
 
       .about .section-title {
@@ -696,6 +709,9 @@
       /* Compress Process section to fit in viewport on mobile */
       .process {
         padding: 4rem 5% 2rem;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
       }
 
       .process .section-title {
@@ -742,6 +758,9 @@
       /* Compress Contact section to fit in viewport on mobile */
       .contact {
         padding: 4rem 5% 2rem;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
       }
 
       .contact .section-title {
@@ -805,15 +824,26 @@
 
       .section {
         padding: 4.5rem 4% 2.5rem;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
       }
 
       .hero {
         padding: 5.5rem 4% 2.5rem;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
       }
 
       /* Extra compression for About section on small mobile */
       .about {
         padding: 4rem 4% 2rem;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
       }
 
       .about .section-title {
@@ -847,6 +877,9 @@
       /* Extra compression for Process section on small mobile */
       .process {
         padding: 3.8rem 4% 1.8rem;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
       }
 
       .process .section-title {
@@ -890,6 +923,9 @@
       /* Extra compression for Contact section on small mobile */
       .contact {
         padding: 3.8rem 4% 1.8rem;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
       }
 
       .contact .section-title {
@@ -1199,27 +1235,36 @@
       lastScroll = currentScroll;
     });
 
-    // Intersection Observer for section animations
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.15
-    };
+    // Intersection Observer for section animations (desktop only)
+    const isMobile = window.innerWidth <= 768;
+    
+    if (!isMobile) {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+      };
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      // Observe all sections except hero (already visible)
+      sections.forEach(section => {
+        if (!section.classList.contains('hero')) {
+          sectionObserver.observe(section);
         }
       });
-    }, observerOptions);
-
-    // Observe all sections except hero (already visible)
-    sections.forEach(section => {
-      if (!section.classList.contains('hero')) {
-        sectionObserver.observe(section);
-      }
-    });
+    } else {
+      // On mobile, make all sections visible immediately
+      sections.forEach(section => {
+        section.classList.add('visible');
+      });
+    }
 
     // ==================== FORM HANDLING ====================
     
