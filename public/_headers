@@ -1,0 +1,18 @@
+# Cloudflare Pages Headers Configuration
+# This ensures proper MIME types for JavaScript modules
+
+/*.js
+  Content-Type: application/javascript; charset=utf-8
+
+/*.jsx
+  Content-Type: application/javascript; charset=utf-8
+
+/*.mjs
+  Content-Type: application/javascript; charset=utf-8
+
+/assets/*.js
+  Content-Type: application/javascript; charset=utf-8
+
+/assets/*.jsx
+  Content-Type: application/javascript; charset=utf-8
+

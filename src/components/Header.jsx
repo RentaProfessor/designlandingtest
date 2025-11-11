@@ -22,8 +22,12 @@ export default function Header() {
         // Get actual header height for accurate offset
         const header = document.querySelector('header')
         const headerHeight = header ? header.offsetHeight : (isMobile ? 80 : 90)
+        
+        // For mobile, add extra padding to ensure clean scroll past hero section
+        const additionalOffset = isMobile ? 20 : 0
+        
         const elementPosition = element.getBoundingClientRect().top
-        const offsetPosition = elementPosition + window.pageYOffset - headerHeight
+        const offsetPosition = elementPosition + window.pageYOffset - headerHeight - additionalOffset
         
         window.scrollTo({
           top: Math.max(0, offsetPosition),
@@ -42,7 +46,7 @@ export default function Header() {
 
   return (
     <>
-      {/* Header */}
+      {/* Header - Always visible on mobile, smooth transitions on desktop */}
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
@@ -53,6 +57,7 @@ export default function Header() {
           paddingTop: 'max(1.25rem, env(safe-area-inset-top))',
           paddingLeft: 'max(5%, env(safe-area-inset-left))',
           paddingRight: 'max(5%, env(safe-area-inset-right))',
+          transform: 'translateZ(0)', // Force GPU acceleration for smoother mobile performance
         }}
       >
         <div className="flex justify-between items-center px-[5%]">
@@ -79,26 +84,29 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Hamburger Menu */}
+          {/* Hamburger Menu - Enhanced visibility on all backgrounds */}
           <button
-            className="md:hidden flex flex-col gap-[6px] p-2 z-[1003]"
+            className="md:hidden flex flex-col gap-[6px] p-2 z-[1003] relative"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
             <span 
-              className={`w-7 h-0.5 rounded transition-all duration-300 bg-brown-900 ${
-                isMenuOpen ? 'rotate-45 translate-y-[8px]' : ''
+              className={`w-7 h-0.5 rounded transition-all duration-300 ${
+                isMenuOpen ? 'rotate-45 translate-y-[8px] bg-white' : 'bg-brown-900 shadow-sm'
               }`}
+              style={{ filter: isMenuOpen ? 'none' : 'drop-shadow(0 1px 2px rgba(255, 255, 255, 0.5))' }}
             />
             <span 
-              className={`w-7 h-0.5 rounded transition-all duration-300 bg-brown-900 ${
-                isMenuOpen ? 'opacity-0 -translate-x-5' : ''
+              className={`w-7 h-0.5 rounded transition-all duration-300 ${
+                isMenuOpen ? 'opacity-0 -translate-x-5 bg-white' : 'bg-brown-900 shadow-sm'
               }`}
+              style={{ filter: isMenuOpen ? 'none' : 'drop-shadow(0 1px 2px rgba(255, 255, 255, 0.5))' }}
             />
             <span 
-              className={`w-7 h-0.5 rounded transition-all duration-300 bg-brown-900 ${
-                isMenuOpen ? '-rotate-45 -translate-y-[8px]' : ''
+              className={`w-7 h-0.5 rounded transition-all duration-300 ${
+                isMenuOpen ? '-rotate-45 -translate-y-[8px] bg-white' : 'bg-brown-900 shadow-sm'
               }`}
+              style={{ filter: isMenuOpen ? 'none' : 'drop-shadow(0 1px 2px rgba(255, 255, 255, 0.5))' }}
             />
           </button>
         </div>
