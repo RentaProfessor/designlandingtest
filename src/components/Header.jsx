@@ -54,17 +54,23 @@ export default function Header() {
 
   return (
     <>
-      {/* Header - Permanently fixed at top */}
+      {/* Header - Permanently fixed at top, never hides */}
       <header 
-        className="fixed top-0 left-0 right-0 z-50 py-5 shadow-md bg-white/98 backdrop-blur-md"
+        className="fixed top-0 left-0 right-0 z-[9999] py-5 shadow-md bg-white/98 backdrop-blur-md"
         style={{
           paddingTop: 'max(1.25rem, env(safe-area-inset-top))',
           paddingLeft: 'max(5%, env(safe-area-inset-left))',
           paddingRight: 'max(5%, env(safe-area-inset-right))',
           position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
           willChange: 'transform',
           transform: 'translate3d(0, 0, 0)',
           WebkitTransform: 'translate3d(0, 0, 0)',
+          WebkitBackfaceVisibility: 'hidden',
+          backfaceVisibility: 'hidden',
+          isolation: 'isolate',
         }}
       >
         <div className="flex justify-between items-center px-[5%]">

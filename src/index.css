@@ -22,3 +22,11 @@
   }
 }
 
+/* Force header to stay visible on mobile - prevent browser hiding behavior */
+header {
+  position: fixed !important;
+  top: 0 !important;
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+}
+
