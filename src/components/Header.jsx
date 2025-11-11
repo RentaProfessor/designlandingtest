@@ -12,6 +12,37 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Force header to stay visible at all times
+  useEffect(() => {
+    const header = document.querySelector('header')
+    if (header) {
+      header.style.position = 'fixed'
+      header.style.top = '0'
+      header.style.display = 'block'
+      header.style.visibility = 'visible'
+      header.style.opacity = '1'
+    }
+  }, [isMenuOpen, isScrolled])
+
+  // Control body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+      document.body.style.position = 'fixed'
+      document.body.style.width = '100%'
+    } else {
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+    }
+    
+    return () => {
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+    }
+  }, [isMenuOpen])
+
   const scrollToSection = (id) => {
     setIsMenuOpen(false)
     // Wait for menu to close before scrolling
@@ -41,6 +72,19 @@ export default function Header() {
             behavior: 'smooth'
           })
         }
+        
+        // Force header to stay visible after scroll
+        setTimeout(() => {
+          const header = document.querySelector('header')
+          if (header) {
+            header.style.position = 'fixed'
+            header.style.top = '0'
+            header.style.display = 'block'
+            header.style.visibility = 'visible'
+            header.style.opacity = '1'
+            header.style.transform = 'translate3d(0, 0, 0)'
+          }
+        }, 100)
       }
     }, 300) // Wait for menu animation to complete
   }

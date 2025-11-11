@@ -26,7 +26,22 @@
 header {
   position: fixed !important;
   top: 0 !important;
-  transform: translateZ(0) !important;
-  -webkit-transform: translateZ(0) !important;
+  left: 0 !important;
+  right: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: translateZ(0) translate3d(0, 0, 0) !important;
+  -webkit-transform: translateZ(0) translate3d(0, 0, 0) !important;
+  z-index: 9999 !important;
+}
+
+/* Prevent iOS Safari from hiding the header on scroll */
+@supports (-webkit-touch-callout: none) {
+  header {
+    position: fixed !important;
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+  }
 }
 
