@@ -23,8 +23,8 @@ export default function Header() {
         const header = document.querySelector('header')
         const headerHeight = header ? header.offsetHeight : (isMobile ? 80 : 90)
         
-        // For mobile, add extra padding to ensure clean scroll past hero section
-        const additionalOffset = isMobile ? 20 : 0
+        // Reduce offset for mobile to scroll lower and show full section
+        const additionalOffset = isMobile ? -30 : 0
         
         const elementPosition = element.getBoundingClientRect().top
         const offsetPosition = elementPosition + window.pageYOffset - headerHeight - additionalOffset
@@ -46,9 +46,9 @@ export default function Header() {
 
   return (
     <>
-      {/* Header - Always visible on mobile, smooth transitions on desktop */}
+      {/* Header - Always stays at top on mobile */}
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 ${
           isScrolled 
             ? 'py-4 shadow-lg bg-white/98 backdrop-blur-md' 
             : 'py-5 shadow-md bg-white/98 backdrop-blur-md md:bg-white/70 md:backdrop-blur-sm'
@@ -57,7 +57,8 @@ export default function Header() {
           paddingTop: 'max(1.25rem, env(safe-area-inset-top))',
           paddingLeft: 'max(5%, env(safe-area-inset-left))',
           paddingRight: 'max(5%, env(safe-area-inset-right))',
-          transform: 'translateZ(0)', // Force GPU acceleration for smoother mobile performance
+          willChange: 'transform',
+          transform: 'translate3d(0, 0, 0)',
         }}
       >
         <div className="flex justify-between items-center px-[5%]">
@@ -84,39 +85,48 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Hamburger Menu - Enhanced visibility on all backgrounds */}
+          {/* Hamburger Menu - Highly visible on all backgrounds */}
           <button
             className="md:hidden flex flex-col gap-[6px] p-2 z-[1003] relative"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
             <span 
-              className={`w-7 h-0.5 rounded transition-all duration-300 ${
-                isMenuOpen ? 'rotate-45 translate-y-[8px] bg-white' : 'bg-brown-900 shadow-sm'
+              className={`w-7 h-[2.5px] rounded transition-all duration-300 ${
+                isMenuOpen ? 'rotate-45 translate-y-[8px] bg-white' : 'bg-brown-900'
               }`}
-              style={{ filter: isMenuOpen ? 'none' : 'drop-shadow(0 1px 2px rgba(255, 255, 255, 0.5))' }}
+              style={{ 
+                boxShadow: isMenuOpen ? 'none' : '0 0 0 1px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.3)'
+              }}
             />
             <span 
-              className={`w-7 h-0.5 rounded transition-all duration-300 ${
-                isMenuOpen ? 'opacity-0 -translate-x-5 bg-white' : 'bg-brown-900 shadow-sm'
+              className={`w-7 h-[2.5px] rounded transition-all duration-300 ${
+                isMenuOpen ? 'opacity-0 -translate-x-5 bg-white' : 'bg-brown-900'
               }`}
-              style={{ filter: isMenuOpen ? 'none' : 'drop-shadow(0 1px 2px rgba(255, 255, 255, 0.5))' }}
+              style={{ 
+                boxShadow: isMenuOpen ? 'none' : '0 0 0 1px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.3)'
+              }}
             />
             <span 
-              className={`w-7 h-0.5 rounded transition-all duration-300 ${
-                isMenuOpen ? '-rotate-45 -translate-y-[8px] bg-white' : 'bg-brown-900 shadow-sm'
+              className={`w-7 h-[2.5px] rounded transition-all duration-300 ${
+                isMenuOpen ? '-rotate-45 -translate-y-[8px] bg-white' : 'bg-brown-900'
               }`}
-              style={{ filter: isMenuOpen ? 'none' : 'drop-shadow(0 1px 2px rgba(255, 255, 255, 0.5))' }}
+              style={{ 
+                boxShadow: isMenuOpen ? 'none' : '0 0 0 1px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.3)'
+              }}
             />
           </button>
         </div>
       </header>
 
-      {/* Mobile Navigation Overlay */}
+      {/* Mobile Navigation Overlay - Fully opaque to prevent text visibility issues */}
       <nav 
-        className={`md:hidden fixed inset-0 z-[1002] bg-gradient-to-br from-brown-500/98 to-brown-400/98 backdrop-blur-md flex flex-col items-center justify-center gap-8 transition-all duration-500 ${
+        className={`md:hidden fixed inset-0 z-[1002] bg-gradient-to-br from-brown-600 to-brown-500 flex flex-col items-center justify-center gap-8 transition-all duration-500 ${
           isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
+        style={{
+          overscrollBehavior: 'contain',
+        }}
       >
         {navLinks.map((link, index) => (
           <button
