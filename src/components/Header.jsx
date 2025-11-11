@@ -19,20 +19,28 @@ export default function Header() {
       const element = document.getElementById(id)
       if (element) {
         const isMobile = window.innerWidth < 768
-        // Get actual header height for accurate offset
-        const header = document.querySelector('header')
-        const headerHeight = header ? header.offsetHeight : (isMobile ? 80 : 90)
         
-        // Reduce offset for mobile to scroll lower and show full section
-        const additionalOffset = isMobile ? -30 : 0
-        
-        const elementPosition = element.getBoundingClientRect().top
-        const offsetPosition = elementPosition + window.pageYOffset - headerHeight - additionalOffset
-        
-        window.scrollTo({
-          top: Math.max(0, offsetPosition),
-          behavior: 'smooth'
-        })
+        if (isMobile) {
+          // For mobile: scroll much further down to show full section without previous section visible
+          const elementPosition = element.getBoundingClientRect().top
+          const offsetPosition = elementPosition + window.pageYOffset - 10 // Only 10px from top
+          
+          window.scrollTo({
+            top: Math.max(0, offsetPosition),
+            behavior: 'smooth'
+          })
+        } else {
+          // Desktop behavior
+          const header = document.querySelector('header')
+          const headerHeight = header ? header.offsetHeight : 90
+          const elementPosition = element.getBoundingClientRect().top
+          const offsetPosition = elementPosition + window.pageYOffset - headerHeight
+          
+          window.scrollTo({
+            top: Math.max(0, offsetPosition),
+            behavior: 'smooth'
+          })
+        }
       }
     }, 300) // Wait for menu animation to complete
   }
@@ -46,19 +54,17 @@ export default function Header() {
 
   return (
     <>
-      {/* Header - Always stays at top on mobile */}
+      {/* Header - Permanently fixed at top */}
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 ${
-          isScrolled 
-            ? 'py-4 shadow-lg bg-white/98 backdrop-blur-md' 
-            : 'py-5 shadow-md bg-white/98 backdrop-blur-md md:bg-white/70 md:backdrop-blur-sm'
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 py-5 shadow-md bg-white/98 backdrop-blur-md"
         style={{
           paddingTop: 'max(1.25rem, env(safe-area-inset-top))',
           paddingLeft: 'max(5%, env(safe-area-inset-left))',
           paddingRight: 'max(5%, env(safe-area-inset-right))',
+          position: 'fixed',
           willChange: 'transform',
           transform: 'translate3d(0, 0, 0)',
+          WebkitTransform: 'translate3d(0, 0, 0)',
         }}
       >
         <div className="flex justify-between items-center px-[5%]">
